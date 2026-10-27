@@ -1,83 +1,117 @@
 # DeepSeek 光标呼吸灯 / DeepSeek Cursor Halo
 
-一个无感跟随鼠标的 DSH Web 插件：隐藏系统鼠标指针，在指针处只显示 DeepSeek 主题色的实心圆核心、无缝衔接的呼吸光晕，以及跟随移动渐隐的拖尾。
+<p align="center">
+  <img src="./icon.svg" width="88" height="88" alt="DeepSeek Cursor Halo icon">
+</p>
 
-## 效果
+一个跟随鼠标的 DSH Web 光标特效插件：把系统指针换成 DeepSeek 蓝色圆点，并绘制无缝呼吸光晕、连续 Canvas 拖尾和点击收束效果；进入菜单/对话框时可以选择恢复系统指针。
 
-- **隐藏原生指针**：首次收到指针移动后隐藏 DSH 页面内的系统鼠标光标，只保留呼吸灯。
-- **实心核心**：`#4d6bfe`（DeepSeek 蓝）12px 圆点。
-- **无缝光晕**：88px 的中心向外径向渐变，核心与光晕之间不再有透明空隙，向外逐渐透明。
-- **呼吸动画**：纯 CSS `transform: scale()` + `opacity`，6 秒慢呼吸，从 0.70 倍收缩状态平滑扩张到 1.12 倍，再收缩回来。
-- **鼠标拖尾**：Canvas 绘制的一条连续渐变线，沿最近约 0.32 秒的指针轨迹平滑延伸，快速移动时也不会断成多个点。
-- **点击收束**：按下鼠标左键时光晕猛地向内收一下，再回弹到当前呼吸状态；实心圆核心保持不动。
-- **设置面板**：在「设置」中新增「光标呼吸灯」栏目，可实时调整是否显示拖尾、拖尾时长、是否显示光晕、光晕大小、闪动开关与周期，是否用蓝点替换系统鼠标指针，以及是否在所有弹层上隐藏。
-- **多语言界面**：设置页和插件管理元数据支持中文、English（美国/英国）、Français、Русский、日本語。
-- **始终置顶**：通过 `document.body` 顶层 Portal 挂载，并使用最高 `z-index`；蓝色圆点自身 `z-index` 高于光晕，拖尾位于最底层。
-- **全局弹层开关**：默认在指针进入菜单、下拉列表、对话框或设置面板时隐藏光晕并恢复系统鼠标指针，离开后恢复；可在设置中关闭「在所有弹层上隐藏」，让效果在所有弹层上也继续保持。
-- **零打扰**：`pointer-events: none`，不拦截任何鼠标操作，也不读写其他插件的 DOM。
-- **自然出入**：指针离开页面、窗口失焦或页面隐藏时淡出并恢复原生指针；再次移动时重新隐藏并淡入。触摸输入不显示。
-- **无障碍**：`aria-hidden="true"`；系统开启“减少动态效果”时停止光晕缩放和点击收束动画。
+支持 **中文、English（美国 / 英国）、Français、Русский、日本語**。
 
-## 文件
+## 特性
 
-| 文件 | 作用 |
-|---|---|
-| `package.json` | Bundle 清单、`dsh.bundle.patch` 与 `dsh.client` 声明 |
-| `cordis.patch.yml` | 插入 `dsh-cursor-halo` 插件行 |
-| `index.js` | Host 半边（无宿主能力，仅占位） |
-| `client.js` | Client 半边：`shell.overlay` 槽位、设置页、多语言字典、指针监听、Canvas 拖尾与 CSS 绘制 |
-| `locale/*.json` | 插件管理器中的标题与描述：`en`、`zh`、`fr`、`ru`、`ja` |
-| `icon.svg` | 插件管理器图标 |
+- **实心蓝点**：`#4d6bfe` DeepSeek 蓝，12px 圆点，始终位于光晕上方。
+- **无缝呼吸光晕**：径向渐变从中心向外渐隐，默认 88px，6 秒呼吸周期。
+- **连续拖尾**：Canvas 绘制的一条连续渐变线，沿最近约 0.32 秒的指针轨迹平滑延伸。
+- **点击收束**：按下左键时光晕向内收一下再回弹，核心蓝点保持不动。
+- **弹层保护**：默认在菜单、下拉列表、对话框和设置面板上隐藏效果并恢复系统指针；可在设置中关闭，让效果在全部弹层上保持。
+- **实时设置**：拖尾开关/时长、光晕开关/大小、闪动开关/周期、是否替换蓝点、是否在弹层上隐藏。
+- **多语言**：设置页与设置栏目跟随 DSH 当前语言实时切换。
+- **始终置顶**：挂载在 `document.body` 的最高层级，`pointer-events: none`，不拦截任何鼠标操作。
+- **轻量隐私**：无网络请求、无 Host 工具、无 shell 调用；设置只写入浏览器 `localStorage`。
 
 ## 安装
 
-在 DSH 中通过 Plugin Manager 安装本地 bundle：
+### 从插件市场安装
 
-```text
-plugin_manager install_bundle
-target: E:\DSH WORKSTATON\dsh-cursor-halo
-```
+插件收录到 **DSHMARKET / DSH 插件市场**后，在 DSH 中打开：
 
-安装后插件立即生效；移动鼠标后原生指针隐藏，只显示呼吸灯。因本包是本地目录链接安装，修改 `client.js` 后 HMR 会重新加载模块。插件卸载或禁用时会自动移除隐藏光标的 CSS 类，恢复原生指针。
+**设置 → 插件市场**，搜索 **Cursor Halo** 并安装。
 
-> 隐藏光标作用于 DSH 页面本身；离开 DSH 窗口到其他应用时，系统指针照常显示。内嵌 iframe 内部的指针由 iframe 自身控制，不受本页面样式影响。
+安装完成后移动鼠标即可看到效果；设置页位于 **设置 → 光标呼吸灯**。
 
-## 设置
+### 从本地目录安装（开发）
 
-打开 DSH 的「设置」，在左侧选择「**光标呼吸灯**」：
+1. 将本仓库/目录放到本机。
+2. 在 DSH 插件管理器中选择安装本地 bundle，目标指向本目录。
+3. 本插件不需要构建步骤，`client.js` 已经是可直接加载的浏览器模块。
 
-| 设置项 | 说明 |
-|---|---|
-| 将鼠标替换为蓝点 | 关闭后显示系统指针，同时隐藏中心蓝点 |
-| 在所有弹层上隐藏 | 默认开启；菜单、下拉列表、对话框、设置面板等全部弹层上恢复系统指针并隐藏效果；关闭后所有弹层上也保持效果 |
-| 开启光晕 | 显示/隐藏指针周围的光晕 |
-| 光晕大小 | 40–180px |
-| 开启闪动 | 光晕是否随时间呼吸 |
-| 闪动周期 | 1000–12000ms |
-| 开启拖尾 | 是否绘制 Canvas 连续尾线 |
-| 拖尾时长 | 80–1200ms 的历史轨迹长度 |
+安装后客户端由 DSH 的 HMR 自动加载；修改 `client.js` 后刷新页面或等待热更新。
 
-修改会立即应用并通过 `localStorage` 保存在本机，同时提供「恢复默认」按钮。
+## 设置项
+
+| 设置 | 说明 | 默认 |
+|---|---|---|
+| 将鼠标替换为蓝点 | 关闭后显示系统指针，同时隐藏蓝点 | 开 |
+| 在所有弹层上隐藏 | 菜单、下拉列表、对话框、设置面板上隐藏效果并恢复系统指针 | 开 |
+| 开启光晕 | 显示/隐藏光晕 | 开 |
+| 光晕大小 | 40–180px | 88px |
+| 开启闪动 | 光晕是否随时间呼吸 | 开 |
+| 闪动周期 | 1000–12000ms | 6000ms |
+| 开启拖尾 | 是否绘制连续尾线 | 开 |
+| 拖尾时长 | 80–1200ms 的历史轨迹长度 | 320ms |
+
+所有设置实时生效并自动保存到本机；设置页提供「恢复默认」。
 
 ## 多语言
 
-插件注册了以下语言包和设置页字典：
+插件注册以下语言包和设置页字典：
 
-- 中文（简体）
-- English（美国 / 英国）
-- Français
-- Русский
-- 日本語
+| 语言 | 标识 |
+|---|---|
+| 中文（简体） | `zh` |
+| English（美国 / 英国） | `en` |
+| Français | `fr` |
+| Русский | `ru` |
+| 日本語 | `ja` |
 
-在 DSH 的 **Settings → General → Language** 中切换语言后，设置页与插件栏目标题会实时更新。`fr`、`ru`、`ja` 是插件通过 Client locale service 注册的外置语言包；DSH 内置文案若没有对应翻译，会按框架的回退规则显示为英文。插件管理中的标题和描述也提供对应的 `locale/*.json` 元数据。
+在 **Settings → General → Language** 中切换后，设置页与栏目名实时刷新。`fr`、`ru`、`ja` 是插件通过 Client locale service 注册的外置语言包；DSH 内置文案若没有对应翻译，会按框架回退规则显示英文。
 
-## 可调参数（`client.js` 中的 CSS）
+## 兼容性
 
-- 品牌色：`.dsh-cursor-halo__core { background }` 与光晕渐变里的 `rgba(77, 107, 254, …)`。
-- 光晕大小：`.dsh-cursor-halo__ring { width/height/margin }`（默认 88px）。
-- 呼吸速度：`animation: dsh-cursor-halo-breathe 6s ...`。
-- 呼吸幅度：`@keyframes dsh-cursor-halo-breathe` 中 `scale(0.7)` 与 `scale(1.12)`。
-- 拖尾长度：`TRAIL_LIFETIME_MS` 已移除，运行时读取设置里的「拖尾时长」。
-- 拖尾线条：`drawTrail()` 中的渐变 stops、`lineWidth`（18 / 9 / 3.5 / 1.4px）与 `TRAIL_MAX_POINTS`。
-- 点击收束：`CLICK_PULSE_MS`（默认 260ms）与 `CLICK_PULSE_SCALE`（默认 0.32）。
-- 设置默认值与范围：`DEFAULT_SETTINGS`、`SETTINGS_BOUNDS`。
+- 已在 **DSH 0.2.1-rc.2（DSH Desktop Next）** 测试。
+- `package.json` 声明 `engines.dsh: ">=0.2.1-rc.2"`。
+- Web 端插件，无需 Node 构建步骤；无 Host 侧权限。
+- 指针离开 DSH 页面、窗口失焦或页面隐藏时会恢复系统指针；iframe 内部指针不受本插件控制。
+
+## 文件结构
+
+| 文件 | 作用 |
+|---|---|
+| `package.json` | Bundle 清单、`dsh.bundle.patch`、`dsh.client` 与兼容性声明 |
+| `cordis.patch.yml` | 插入 `dsh-cursor-halo` 插件行 |
+| `index.js` | Host 半边（无能力，仅占位） |
+| `client.js` | Client 半边：`shell.overlay` 槽位、设置页、i18n 字典、Canvas 拖尾与 CSS |
+| `locale/*.json` | 插件管理器标题与描述：`en`、`zh`、`fr`、`ru`、`ja` |
+| `icon.svg` | 插件图标 |
+| `LICENSE` | MIT 许可证 |
+
+## 开发
+
+```text
+client.js   # 浏览器端唯一实现，修改后由 DSH HMR 重新加载
+index.js    # Host 占位入口
+```
+
+无 npm 运行时依赖；React / ReactDOM 使用 DSH 客户端模块表提供。
+
+## 发布到 DSHMARKET
+
+DSHMARKET 使用 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 作为精选目录。发布时：
+
+1. 将本目录作为公开 GitHub 仓库根目录推送；
+2. 添加 GitHub topic `dsh-plugin`；
+3. 向 awesome-dsh-plugin 的 `data/plugins/` 提交 PR，条目包含仓库地址、分类、英文与中文一句话描述；
+4. 通过审核后，DSHMARKET 和 DSH 插件市场会自动收录。
+
+## 许可
+
+[MIT](./LICENSE)
+
+---
+
+## English summary
+
+DeepSeek Cursor Halo is a DSH web plugin that replaces the native pointer with a DeepSeek-blue dot and draws a seamless breathing halo, continuous canvas trail, and click-snap effect. Menus and dialogs can restore the native pointer; every effect is configurable from **Settings → Cursor Halo**. The UI is localized in English, Chinese, French, Russian, and Japanese.
+
+Install from **Settings → Plugin Market** once listed, or install this directory as a local bundle for development. No network access, shell commands, or host-side tools are used; settings persist in browser `localStorage`. Licensed under MIT.

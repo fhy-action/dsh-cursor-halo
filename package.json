@@ -1,9 +1,21 @@
 {
   "name": "@local/dsh-cursor-halo",
-  "version": "2.0.0",
-  "private": true,
+  "version": "2.0.1",
   "type": "module",
   "description": "DeepSeek-blue cursor halo with a continuous trail, click snap, overlay controls, and English, Chinese, French, Russian and Japanese settings.",
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cursor",
+    "halo",
+    "overlay",
+    "i18n"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.2"
+  },
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -16,7 +28,8 @@
     "cordis.patch.yml",
     "locale/*.json",
     "icon.svg",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "dsh": {
     "bundle": {
