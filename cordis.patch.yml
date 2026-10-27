@@ -1,0 +1,3 @@
+- insert:
+    - id: dsh-cursor-halo
+      name: '@local/dsh-cursor-halo'
