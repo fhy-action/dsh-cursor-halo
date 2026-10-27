@@ -1,9 +1,9 @@
 {
-  "name": "@local/dsh-cursor-halo",
+  "name": "@fhy-action/dsh-cursor-halo",
   "version": "2.0.1",
   "type": "module",
   "description": "DeepSeek-blue cursor halo with a continuous trail, click snap, overlay controls, and English, Chinese, French, Russian and Japanese settings.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "dsh",
     "dsh-plugin",
@@ -11,7 +11,7 @@
     "cursor",
     "halo",
     "overlay",
-    "i18n"
+    "i18n"S
   ],
   "engines": {
     "dsh": ">=0.2.1-rc.2"
