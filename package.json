@@ -11,7 +11,7 @@
     "cursor",
     "halo",
     "overlay",
-    "i18n"S
+    "i18n"
   ],
   "engines": {
     "dsh": ">=0.2.1-rc.2"
