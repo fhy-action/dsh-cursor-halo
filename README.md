@@ -95,18 +95,9 @@ index.js    # Host 占位入口
 
 无 npm 运行时依赖；React / ReactDOM 使用 DSH 客户端模块表提供。
 
-## 发布到 DSHMARKET
-
-DSHMARKET 使用 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 作为精选目录。发布时：
-
-1. 将本目录作为公开 GitHub 仓库根目录推送；
-2. 添加 GitHub topic `dsh-plugin`；
-3. 向 awesome-dsh-plugin 的 `data/plugins/` 提交 PR，条目包含仓库地址、分类、英文与中文一句话描述；
-4. 通过审核后，DSHMARKET 和 DSH 插件市场会自动收录。
-
 ## 许可
 
-[MIT](./LICENSE)
+[Apache License 2.0](./LICENSE)
 
 ---
 
