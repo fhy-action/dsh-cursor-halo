@@ -13,7 +13,7 @@
  */
 
 window.__ModuleLoader__.load({
-  id: "@local/dsh-cursor-halo",
+  id: "@fhy-action/dsh-cursor-halo",
   factory(require) {
     const CURSOR_HIDE_CLASS = "dsh-cursor-halo--hide-native-cursor";
     const TRAIL_MAX_POINTS = 160;

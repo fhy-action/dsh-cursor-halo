@@ -84,7 +84,7 @@
 | `client.js` | Client 半边：`shell.overlay` 槽位、设置页、i18n 字典、Canvas 拖尾与 CSS |
 | `locale/*.json` | 插件管理器标题与描述：`en`、`zh`、`fr`、`ru`、`ja` |
 | `icon.svg` | 插件图标 |
-| `LICENSE` | MIT 许可证 |
+| `LICENSE` | Apache-2.0 许可证 |
 
 ## 开发
 
@@ -105,4 +105,4 @@ index.js    # Host 占位入口
 
 DeepSeek Cursor Halo is a DSH web plugin that replaces the native pointer with a DeepSeek-blue dot and draws a seamless breathing halo, continuous canvas trail, and click-snap effect. Menus and dialogs can restore the native pointer; every effect is configurable from **Settings → Cursor Halo**. The UI is localized in English, Chinese, French, Russian, and Japanese.
 
-Install from **Settings → Plugin Market** once listed, or install this directory as a local bundle for development. No network access, shell commands, or host-side tools are used; settings persist in browser `localStorage`. Licensed under MIT.
+Install from **Settings → Plugin Market** once listed, or install this directory as a local bundle for development. No network access, shell commands, or host-side tools are used; settings persist in browser `localStorage`. Licensed under Apache-2.0..
