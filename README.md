@@ -5,6 +5,7 @@
 </p>
 
 一个跟随鼠标的 DSH Web 光标特效插件：把系统指针换成 DeepSeek 蓝色圆点，并绘制无缝呼吸光晕、连续 Canvas 拖尾和点击收束效果；进入菜单/对话框时可以选择恢复系统指针。
+[![dsh.so risk](https://cdn.dsh.so/badge/dsh-cursor-halo.svg)](https://www.dsh.so/artifact/dsh-cursor-halo/)
 
 支持 **中文、English（美国 / 英国）、Français、Русский、日本語**。
 
