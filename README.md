@@ -7,6 +7,8 @@
 一个跟随鼠标的 DSH Web 光标特效插件：把系统指针换成 DeepSeek 蓝色圆点，并绘制无缝呼吸光晕、连续 Canvas 拖尾和点击收束效果；进入菜单/对话框时可以选择恢复系统指针。
 
 [![dsh.so risk](https://cdn.dsh.so/badge/dsh-cursor-halo.svg)](https://www.dsh.so/artifact/dsh-cursor-halo/)
+[![dsh.so install · dsh 0.2.1-rc.3](https://cdn.dsh.so/badge/install/dsh-cursor-halo@0.2.1-rc.3.svg)](https://www.dsh.so/artifact/dsh-cursor-halo/)
+[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/fhy-action/dsh-cursor-halo)
 [![npm version](https://img.shields.io/npm/v/@fhy-action/dsh-cursor-halo.svg)](https://www.npmjs.com/package/@fhy-action/dsh-cursor-halo)
 [![npm downloads](https://img.shields.io/npm/dm/@fhy-action/dsh-cursor-halo.svg)](https://www.npmjs.com/package/@fhy-action/dsh-cursor-halo)
 [![License](https://img.shields.io/npm/l/@fhy-action/dsh-cursor-halo.svg)](https://www.npmjs.com/package/@fhy-action/dsh-cursor-halo)
